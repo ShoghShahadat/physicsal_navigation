@@ -5,8 +5,6 @@ import 'package:flutter/scheduler.dart';
 import '../models/physics_config.dart';
 import '../models/style_config.dart';
 
-// The main PhysicsalFab widget remains the same.
-// ویجت اصلی PhysicsalFab بدون تغییر باقی می‌ماند.
 class PhysicsalFab extends StatefulWidget {
   final FabStyle style;
   final PhysicsConfig physicsConfig;
@@ -36,6 +34,10 @@ class _PhysicsalFabState extends State<PhysicsalFab>
   late Ticker _ticker;
   late AnimationController _impactGlowController;
   late AnimationController _pulsingGlowController;
+  // FIX: Create a single, reusable AnimationController for the return animation.
+  // اصلاح: ایجاد یک AnimationController تکی و قابل استفاده مجدد برای انیمیشن بازگشت.
+  late AnimationController _returnController;
+  late Animation<Alignment> _returnAnimation;
 
   Alignment _dragAlignment = const Alignment(0.0, 0.85);
   Offset _velocity = Offset.zero;
@@ -56,6 +58,20 @@ class _PhysicsalFabState extends State<PhysicsalFab>
       vsync: this,
       duration: const Duration(milliseconds: 1200),
     )..repeat(reverse: true);
+
+    // FIX: Initialize the return controller here and add the listener.
+    // اصلاح: کنترلر بازگشت در اینجا مقداردهی اولیه و لیسنر به آن اضافه می‌شود.
+    _returnController = AnimationController(vsync: this);
+    _returnAnimation =
+        AlignmentTween(begin: _dragAlignment, end: _dragAlignment)
+            .animate(_returnController)
+          ..addListener(() {
+            if (mounted) {
+              setState(() {
+                _dragAlignment = _returnAnimation.value;
+              });
+            }
+          });
   }
 
   @override
@@ -63,6 +79,9 @@ class _PhysicsalFabState extends State<PhysicsalFab>
     _ticker.dispose();
     _impactGlowController.dispose();
     _pulsingGlowController.dispose();
+    // FIX: Ensure all controllers are disposed.
+    // اصلاح: اطمینان از اینکه تمام کنترلرها dispose می‌شوند.
+    _returnController.dispose();
     _returnTimer?.cancel();
     super.dispose();
   }
@@ -79,23 +98,15 @@ class _PhysicsalFabState extends State<PhysicsalFab>
 
       bool hasCollided = false;
       if (_dragAlignment.x.abs() > 1.0) {
-        if (widget.physicsConfig.invertDirectionOnCollision) {
-          _velocity = Offset(-_velocity.dx * widget.physicsConfig.damping,
-              _velocity.dy * widget.physicsConfig.damping);
-        } else {
-          _velocity = Offset(0, _velocity.dy * widget.physicsConfig.damping);
-        }
+        _velocity = Offset(-_velocity.dx * widget.physicsConfig.damping,
+            _velocity.dy * widget.physicsConfig.damping);
         _dragAlignment =
             Alignment(_dragAlignment.x.clamp(-1.0, 1.0), _dragAlignment.y);
         hasCollided = true;
       }
       if (_dragAlignment.y.abs() > 1.0) {
-        if (widget.physicsConfig.invertDirectionOnCollision) {
-          _velocity = Offset(_velocity.dx * widget.physicsConfig.damping,
-              -_velocity.dy * widget.physicsConfig.damping);
-        } else {
-          _velocity = Offset(_velocity.dx * widget.physicsConfig.damping, 0);
-        }
+        _velocity = Offset(_velocity.dx * widget.physicsConfig.damping,
+            -_velocity.dy * widget.physicsConfig.damping);
         _dragAlignment =
             Alignment(_dragAlignment.x, _dragAlignment.y.clamp(-1.0, 1.0));
         hasCollided = true;
@@ -105,7 +116,7 @@ class _PhysicsalFabState extends State<PhysicsalFab>
         _handleCollisionEffect();
       }
 
-      if (_velocity.distance < 0.1) {
+      if (_ticker.isTicking && _velocity.distance < 0.1) {
         _ticker.stop();
         widget.onStop(_dragAlignment);
       }
@@ -128,46 +139,11 @@ class _PhysicsalFabState extends State<PhysicsalFab>
     }
   }
 
-  void _returnToHome() {
-    widget.onReturnStart?.call();
-    _ticker.stop();
-
-    switch (widget.physicsConfig.returnType) {
-      case FabReturnType.teleport:
-        setState(() {
-          _dragAlignment = const Alignment(0.0, 0.85);
-        });
-        break;
-      case FabReturnType.elastic:
-      case FabReturnType.smooth:
-        final returnController = AnimationController(
-          vsync: this,
-          duration: widget.physicsConfig.returnAnimationDuration,
-        );
-        final curve = widget.physicsConfig.returnType == FabReturnType.elastic
-            ? Curves.elasticOut
-            : Curves.easeOutCubic;
-
-        final animation = returnController.drive(
-          AlignmentTween(
-            begin: _dragAlignment,
-            end: const Alignment(0.0, 0.85),
-          ).chain(CurveTween(curve: curve)),
-        );
-        animation.addListener(() {
-          if (mounted) setState(() => _dragAlignment = animation.value);
-        });
-        returnController.forward().whenCompleteOrCancel(() {
-          returnController.dispose();
-        });
-        break;
-    }
-  }
-
   void _onPanStart(DragStartDetails details) {
     widget.onDragStart?.call();
     _returnTimer?.cancel();
     _ticker.stop();
+    _returnController.stop();
     setState(() {
       _isAiming = true;
       _dragOffset = Offset.zero;
@@ -205,6 +181,34 @@ class _PhysicsalFabState extends State<PhysicsalFab>
 
     _returnTimer?.cancel();
     _returnTimer = Timer(const Duration(seconds: 5), _returnToHome);
+  }
+
+  void _returnToHome() {
+    widget.onReturnStart?.call();
+    _ticker.stop();
+
+    switch (widget.physicsConfig.returnType) {
+      case FabReturnType.teleport:
+        setState(() {
+          _dragAlignment = const Alignment(0.0, 0.85);
+        });
+        break;
+      case FabReturnType.elastic:
+      case FabReturnType.smooth:
+        _returnController.duration =
+            widget.physicsConfig.returnAnimationDuration;
+        final curve = widget.physicsConfig.returnType == FabReturnType.elastic
+            ? Curves.elasticOut
+            : Curves.easeOutCubic;
+
+        _returnAnimation = AlignmentTween(
+          begin: _dragAlignment,
+          end: const Alignment(0.0, 0.85),
+        ).animate(CurvedAnimation(parent: _returnController, curve: curve));
+
+        _returnController.forward(from: 0.0);
+        break;
+    }
   }
 
   @override
@@ -385,11 +389,9 @@ class __AnimatedGlowingFabState extends State<_AnimatedGlowingFab>
     final double chargeScale = widget.isCharging ? 1.15 : 1.0;
     final double chargeGlow = widget.isCharging ? 15.0 : 0.0;
 
-    // FIX: The glow color is now derived from the first color of the gradient.
-    // اصلاح: رنگ درخشش اکنون از اولین رنگ گرادیانت گرفته می‌شود.
     final glowColor = (widget.style.gradient is LinearGradient)
         ? (widget.style.gradient as LinearGradient).colors.first
-        : Colors.cyan; // Fallback color
+        : Colors.cyan;
 
     return AnimatedScale(
       scale: chargeScale,
