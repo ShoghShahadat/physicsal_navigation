@@ -6,6 +6,12 @@ library physicsal_navigation;
 // ویجت اصلی را اکسپورت کن تا توسط دیگر توسعه‌دهندگان قابل استفاده باشد.
 export 'src/widgets/physicsal_nav_bar.dart';
 
+// --- START OF FIX / شروع اصلاح ---
+// Export the PhysicsalFab widget to make it accessible for testing purposes.
+// ویجت PhysicsalFab را برای اهداف تست، قابل دسترس کن.
+export 'src/widgets/physicsal_fab.dart';
+// --- END OF FIX / پایان اصلاح ---
+
 // Export all the model classes for full customization.
 // تمام کلاس‌های مدل را برای سفارشی‌سازی کامل اکسپورت کن.
 export 'src/models/nav_item.dart';
