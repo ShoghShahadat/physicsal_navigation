@@ -1,4 +1,4 @@
-# Physicsal Navigation: Where UI Meets Physics
+# Physicsal Navigation: جایی که UI با فیزیک ملاقات می‌کند
 ### یک نوار ناوبری که زندگی می‌کند
 
 [![pub version](https://img.shields.io/pub/v/physicsal_navigation.svg)](https://pub.dev/packages/physicsal_navigation)
@@ -11,55 +11,63 @@
 
 ---
 
-![GIF of Physicsal Navigation in Action](https://placehold.co/600x400/1a1a1a/ffffff?text=Package+In+Action+GIF)
-*(A captivating GIF showcasing the FAB being thrown, bouncing off walls, and the smooth navigation animations)*
+### 🎬 دموها در عمل
 
-## ✨ Core Philosophy & Features (فلسفه و ویژگی‌های کلیدی)
+<div align="center">
 
-Our goal was to break free from static, boring UI elements. Why should a button just be a button? Why can't it have weight, velocity, and personality?
-هدف ما فرار از عناصر ثابت و خسته‌کننده رابط کاربری بود. چرا یک دکمه فقط باید یک دکمه باشد؟ چرا نمی‌تواند وزن، سرعت و شخصیت داشته باشد؟
+| پرتاب قلاب‌سنگی (Slingshot) | پرتاب مستقیم (Direct Throw) |
+| :---: | :---: |
+| <video src="https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/1.mp4" width="350" autoplay loop muted playsinline title="نمایش پرتاب قلاب‌سنگی و بازگشت فنری دکمه"></video> | <video src="https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/2.mp4" width="350" autoplay loop muted playsinline title="نمایش پرتاب مستقیم و انیمیشن‌های روان ناوبری"></video> |
+| **افکت برخورد انفجاری** | **سفارشی‌سازی کامل استایل** |
+| <video src="https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/3.mp4" width="350" autoplay loop muted playsinline title="نمایش افکت درخشش هنگام برخورد دکمه با لبه‌ها"></video> | <video src="https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/4.mp4" width="350" autoplay loop muted playsinline title="نمایش قابلیت‌های سفارشی‌سازی ظاهر نوار و دکمه"></video> |
 
-* **Real Physics Engine (موتور فیزیک واقعی):**
-    * The FAB isn't just animated; it's simulated. It has properties like `damping` (bounciness), `friction`, and `velocity`. Throw it around and watch it behave like a real object.
+</div>
+
+## ✨ فلسفه و ویژگی‌های کلیدی
+
+> هدف ما فرار از عناصر ثابت و خسته‌کننده رابط کاربری بود. چرا یک دکمه فقط باید یک دکمه باشد؟ چرا نمی‌تواند وزن، سرعت و شخصیت داشته باشد؟
+
+* **موتور فیزیک واقعی (Real Physics Engine):**
     * دکمه شناور فقط انیمیشن ندارد؛ بلکه شبیه‌سازی می‌شود. دارای خصوصیاتی مانند `damping` (جهندگی)، `friction` (اصطکاک) و `velocity` (سرعت) است. آن را پرتاب کنید و ببینید چگونه مانند یک شی واقعی رفتار می‌کند.
+    * The FAB isn't just animated; it's simulated. It has properties like `damping` (bounciness), `friction`, and `velocity`. Throw it around and watch it behave like a real object.
 
-* **Deep Customization (سفارشی‌سازی عمیق):**
-    * **Appearance:** Control everything from the FAB's icon and gradient to the navigation bar's background color, blur intensity, and item styles.
+* **سفارشی‌سازی عمیق (Deep Customization):**
     * **ظاهر:** همه چیز را کنترل کنید؛ از آیکون و گرادیانت FAB گرفته تا رنگ پس‌زمینه نوار ناوبری، شدت تاری و استایل آیتم‌ها.
-    * **Behavior:** Don't like the physics? Change them! Use our pre-configured presets or fine-tune every parameter to create the exact behavior you want.
     * **رفتار:** فیزیک را دوست ندارید؟ تغییرش دهید! از حالت‌های آماده ما استفاده کنید یا تمام پارامترها را برای خلق رفتار دلخواه خود تنظیم کنید.
+    * **Appearance:** Control everything from the FAB's icon and gradient to the navigation bar's background color, blur intensity, and item styles.
+    * **Behavior:** Don't like the physics? Change them! Use our pre-configured presets or fine-tune every parameter to create the exact behavior you want.
 
-* **Interactive & Fun (تعاملی و جذاب):**
-    * The `onFabStop` callback provides the final `Alignment` of the FAB, allowing you to create interactive targets or trigger events based on where it lands. A truly gamified experience.
+* **تعاملی و جذاب (Interactive & Fun):**
     * `Callback` مربوط به `onFabStop`، موقعیت نهایی دکمه را در اختیار شما قرار می‌دهد و به شما اجازه می‌دهد تا اهداف تعاملی ایجاد کرده یا بر اساس محل فرود دکمه، رویدادهایی را فعال کنید. یک تجربه واقعاً بازی‌گونه.
+    * The `onFabStop` callback provides the final `Alignment` of the FAB, allowing you to create interactive targets or trigger events based on where it lands. A truly gamified experience.
 
-* **Stunning Glassmorphism (افکت شیشه‌ای خیره‌کننده):**
-    * The bottom bar uses a `BackdropFilter` to create a beautiful, modern, glass-like effect that adds depth and elegance to your app.
+* **افکت شیشه‌ای خیره‌کننده (Stunning Glassmorphism):**
     * نوار پایین از `BackdropFilter` برای ایجاد یک افکت زیبا، مدرن و شیشه‌ای استفاده می‌کند که به اپلیکیشن شما عمق و ظرافت می‌بخشد.
+    * The bottom bar uses a `BackdropFilter` to create a beautiful, modern, glass-like effect that adds depth and elegance to your app.
 
-## 🚀 Installation (نصب)
+## 🚀 نصب (Installation)
 
-Add this to your package's `pubspec.yaml` file:
 این خط را به فایل `pubspec.yaml` پروژه خود اضافه کنید:
+Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
   physicsal_navigation: ^1.0.0
 ```
 
-Then, install packages from the command line:
 سپس، پکیج‌ها را از خط فرمان نصب کنید:
+Then, install packages from the command line:
 
 ```shell
 flutter pub get
 ```
 
-## 💻 Usage Guide (راهنمای استفاده)
+## 💻 راهنمای استفاده (Usage Guide)
 
-### Basic Setup (راه‌اندازی اولیه)
+### راه‌اندازی اولیه (Basic Setup)
 
-Import the package and use `PhysicsalNavBar` in your `Scaffold`.
 پکیج را ایمپورت کرده و از `PhysicsalNavBar` در `Scaffold` خود استفاده کنید.
+Import the package and use `PhysicsalNavBar` in your `Scaffold`.
 
 ```dart
 import 'package:flutter/material.dart';
@@ -81,7 +89,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
 
 class DemoScreen extends StatefulWidget {
   const DemoScreen({super.key});
@@ -111,8 +118,8 @@ class _DemoScreenState extends State<DemoScreen> {
           ],
         )
       ),
-      // Use the PhysicsalNavBar as the widget for the bottomNavigationBar property.
       // از PhysicsalNavBar به عنوان ویجت برای پراپرتی bottomNavigationBar استفاده کنید.
+      // Use the PhysicsalNavBar as the widget for the bottomNavigationBar property.
       bottomNavigationBar: PhysicsalNavBar(
         items: const [
           PhysicsalNavItem(icon: Icons.home_outlined, activeIcon: Icons.home, label: 'Home'),
@@ -141,17 +148,17 @@ class _DemoScreenState extends State<DemoScreen> {
 }
 ```
 
-### Advanced Customization (سفارشی‌سازی پیشرفته)
+### سفارشی‌سازی پیشرفته (Advanced Customization)
 
-Unleash the full power by providing custom style and physics configurations.
 با ارائه تنظیمات استایل و فیزیک سفارشی، قدرت کامل پکیج را آزاد کنید.
+Unleash the full power by providing custom style and physics configurations.
 
 ```dart
 PhysicsalNavBar(
-  // ... other required properties
+  // ... سایر پراپرتی‌های مورد نیاز
   
-  // 1. Customize the Bar Style
   // ۱. سفارشی‌سازی استایل نوار
+  // 1. Customize the Bar Style
   barStyle: BarStyle(
     backgroundColor: const Color.fromRGBO(20, 20, 20, 0.8),
     blurSigma: 20.0,
@@ -162,67 +169,67 @@ PhysicsalNavBar(
     ),
   ),
   
-  // 2. Customize the FAB Style
   // ۲. سفارشی‌سازی استایل دکمه شناور
+  // 2. Customize the FAB Style
   fabStyle: const FabStyle(
     icon: Icons.rocket_launch,
     gradient: LinearGradient(colors: [Color(0xff6A11CB), Color(0xff2575FC)]),
     glowColor: Colors.blueAccent,
   ),
   
-  // 3. Use a pre-built Physics Preset or create your own
   // ۳. از یک حالت فیزیک آماده استفاده کنید یا خودتان بسازید
+  // 3. Use a pre-built Physics Preset or create your own
   physicsConfig: const PhysicsConfig(
-    launchType: FabLaunchType.slingshot, // Feels like a slingshot
-    returnType: FabReturnType.elastic, // Bounces back elastically
-    collisionEffect: FabCollisionEffect.explosiveGlow, // Big glow on impact
-    damping: 0.6, // A bit less bouncy
+    launchType: FabLaunchType.slingshot, // حسی شبیه قلاب‌سنگ
+    returnType: FabReturnType.elastic, // بازگشت فنری
+    collisionEffect: FabCollisionEffect.explosiveGlow, // درخشش زیاد هنگام برخورد
+    damping: 0.6, // کمی جهندگی کمتر
   ),
 )
 ```
 
-## ⚙️ API Reference (مرجع API)
+## ⚙️ مرجع API (API Reference)
 
 ### `PhysicsalNavBar`
-The main widget that holds everything together.
+ویجت اصلی که همه چیز را در کنار هم نگه می‌دارد.
 
 | Parameter | Type | Description (توضیحات) |
 | :--- | :--- | :--- |
-| `items` | `List<PhysicsalNavItem>` | (Required) The 4 items for the nav bar. (الزامی) ۴ آیتم برای نوار ناوبری. |
-| `onSelectionChanged` | `ValueChanged<int>` | (Required) Called when a tab is selected. (الزامی) هنگام انتخاب یک تب فراخوانی می‌شود. |
-| `onFabPressed` | `VoidCallback` | (Required) Called when the FAB is tapped. (الزامی) هنگام کلیک روی دکمه شناور فراخوانی می‌شود. |
-| `onFabStop` | `ValueChanged<Alignment>` | (Required) Called when the FAB stops moving. (الزامی) پس از توقف دکمه شناور فراخوانی می‌شود. |
-| `initialIndex` | `int` | The starting selected index. ایندکس آیتم انتخاب شده اولیه. |
-| `barStyle` | `BarStyle` | Customizes the bottom bar's appearance. ظاهر نوار پایین را سفارشی می‌کند. |
-| `fabStyle` | `FabStyle` | Customizes the FAB's appearance. ظاهر دکمه شناور را سفارشی می‌کند. |
-| `physicsConfig` | `PhysicsConfig` | Customizes the FAB's physics. فیزیک دکمه شناور را سفارشی می‌کند. |
+| `items` | `List<PhysicsalNavItem>` | (الزامی) ۴ آیتم برای نوار ناوبری. (Required) The 4 items for the nav bar. |
+| `onSelectionChanged` | `ValueChanged<int>` | (الزامی) هنگام انتخاب یک تب فراخوانی می‌شود. (Required) Called when a tab is selected. |
+| `onFabPressed` | `VoidCallback` | (الزامی) هنگام کلیک روی دکمه شناور فراخوانی می‌شود. (Required) Called when the FAB is tapped. |
+| `onFabStop` | `ValueChanged<Alignment>` | (الزامی) پس از توقف دکمه شناور فراخوانی می‌شود. (Required) Called when the FAB stops moving. |
+| `initialIndex` | `int` | ایندکس آیتم انتخاب شده اولیه. The starting selected index. |
+| `barStyle` | `BarStyle` | ظاهر نوار پایین را سفارشی می‌کند. Customizes the bottom bar's appearance. |
+| `fabStyle` | `FabStyle` | ظاهر دکمه شناور را سفارشی می‌کند. Customizes the FAB's appearance. |
+| `physicsConfig` | `PhysicsConfig` | فیزیک دکمه شناور را سفارشی می‌کند. Customizes the FAB's physics. |
 
 ---
 
 ### `PhysicsConfig`
-Configure the physical behavior of the FAB.
+رفتار فیزیکی دکمه شناور را پیکربندی کنید.
 
 | Parameter | Type | Options & Description (گزینه‌ها و توضیحات) |
 | :--- | :--- | :--- |
-| `launchType` | `FabLaunchType` | **`slingshot`**: Pull and release. (کشیدن و رها کردن)<br>**`directThrow`**: Flick to throw. (پرتاب با حرکت دست) |
-| `returnType` | `FabReturnType` | **`elastic`**: Bouncy return. (بازگشت فنری)<br>**`smooth`**: Animates back smoothly. (بازگشت نرم)<br>**`teleport`**: Instantly snaps back. (بازگشت آنی) |
-| `collisionEffect` | `FabCollisionEffect` | **`bounceAndGlow`**: Default bounce and glow. (جهش و درخشش پیش‌فرض)<br>**`stickToWall`**: Stops at the edge. (چسبیدن به دیواره)<br>**`explosiveGlow`**: Larger glow on impact. (درخشش انفجاری) |
-| `damping` | `double` | Bounciness factor (0.0 - 1.0). ضریب جهندگی. |
-| `friction` | `double` | How quickly it slows down (0.0 - 1.0). ضریب اصطکاک. |
-| `...` | `...` | And more for fine-tuning! و پارامترهای بیشتر برای تنظیمات دقیق! |
+| `launchType` | `FabLaunchType` | **`slingshot`**: کشیدن و رها کردن. (Pull and release.)<br>**`directThrow`**: پرتاب با حرکت دست. (Flick to throw.) |
+| `returnType` | `FabReturnType` | **`elastic`**: بازگشت فنری. (Bouncy return.)<br>**`smooth`**: بازگشت نرم با انیمیشن. (Animates back smoothly.)<br>**`teleport`**: بازگشت آنی. (Instantly snaps back.) |
+| `collisionEffect` | `FabCollisionEffect` | **`bounceAndGlow`**: جهش و درخشش پیش‌فرض. (Default bounce and glow.)<br>**`stickToWall`**: چسبیدن به دیواره. (Stops at the edge.)<br>**`explosiveGlow`**: درخشش انفجاری هنگام برخورد. (Larger glow on impact.) |
+| `damping` | `double` | ضریب جهندگی (0.0 - 1.0). Bounciness factor. |
+| `friction` | `double` | ضریب اصطکاک (0.0 - 1.0). How quickly it slows down. |
+| `...` | `...` | و پارامترهای بیشتر برای تنظیمات دقیق! And more for fine-tuning! |
 
-#### Physics Presets (حالت‌های فیزیک آماده)
-* `PhysicsConfig.standard`: A great, well-behaved default. (یک پیش‌فرض عالی و متعادل)
-* `PhysicsConfig.chaotic`: More bouncy and unpredictable. (جهنده‌تر و غیرقابل پیش‌بینی)
-* `PhysicsConfig.heavy`: Feels like moving through water. (حسی شبیه حرکت در آب)
-* `PhysicsConfig.slingshot`: A classic slingshot mechanic. (یک مکانیک قلاب‌سنگ کلاسیک)
+#### حالت‌های فیزیک آماده (Physics Presets)
+* `PhysicsConfig.standard`: یک پیش‌فرض عالی و متعادل. (A great, well-behaved default.)
+* `PhysicsConfig.chaotic`: جهنده‌تر و غیرقابل پیش‌بینی. (More bouncy and unpredictable.)
+* `PhysicsConfig.heavy`: حسی شبیه حرکت در آب. (Feels like moving through water.)
+* `PhysicsConfig.slingshot`: یک مکانیک قلاب‌سنگ کلاسیک. (A classic slingshot mechanic.)
 
-## 💖 Contributing (مشارکت)
+## 💖 مشارکت (Contributing)
 
-Contributions are welcome! Please feel free to submit a Pull Request.
 از مشارکت شما استقبال می‌شود! لطفاً با خیال راحت یک Pull Request ارسال کنید.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License (مجوز)
+## 📄 مجوز (License)
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-این پروژه تحت مجوز MIT منتشر شده است. برای جزئیات بیشتر به فایل [LICENSE](LICENSE) مراجعه کنید.
+این پروژه تحت مجوز MIT منتشر شده است. برای جزئیات بیشتر به فایل `LICENSE` مراجعه کنید.
+This project is licensed under the MIT License - see the `LICENSE` file for details.
