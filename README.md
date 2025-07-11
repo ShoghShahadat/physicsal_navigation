@@ -17,9 +17,9 @@
 
 | پرتاب قلاب‌سنگی (Slingshot) | پرتاب مستقیم (Direct Throw) |
 | :---: | :---: |
-| <video src="https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/1.mp4" width="350" autoplay loop muted playsinline title="نمایش پرتاب قلاب‌سنگی و بازگشت فنری دکمه"></video> | <video src="https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/2.mp4" width="350" autoplay loop muted playsinline title="نمایش پرتاب مستقیم و انیمیشن‌های روان ناوبری"></video> |
+| ![نمایش پرتاب قلاب‌سنگی](https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/1.gif) | ![نمایش پرتاب مستقیم](https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/2.gif) |
 | **افکت برخورد انفجاری** | **سفارشی‌سازی کامل استایل** |
-| <video src="https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/3.mp4" width="350" autoplay loop muted playsinline title="نمایش افکت درخشش هنگام برخورد دکمه با لبه‌ها"></video> | <video src="https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/4.mp4" width="350" autoplay loop muted playsinline title="نمایش قابلیت‌های سفارشی‌سازی ظاهر نوار و دکمه"></video> |
+| ![نمایش افکت برخورد](https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/3.gif) | ![نمایش سفارشی‌سازی](https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/4.gif) |
 
 </div>
 
