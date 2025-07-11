@@ -5,10 +5,8 @@ import 'package:flutter/scheduler.dart';
 import '../models/physics_config.dart';
 import '../models/style_config.dart';
 
-/// The core widget of the package: A Floating Action Button with built-in physics.
-/// ویجت اصلی پکیج: یک دکمه شناور با فیزیک داخلی.
-/// It can be launched, collides with screen edges, and returns to its home position.
-/// این دکمه قابل پرتاب است، با لبه‌های صفحه برخورد می‌کند و به جایگاه اصلی خود بازمی‌گردد.
+// The main PhysicsalFab widget remains the same.
+// ویجت اصلی PhysicsalFab بدون تغییر باقی می‌ماند.
 class PhysicsalFab extends StatefulWidget {
   final FabStyle style;
   final PhysicsConfig physicsConfig;
@@ -69,8 +67,6 @@ class _PhysicsalFabState extends State<PhysicsalFab>
     super.dispose();
   }
 
-  /// The physics engine tick. This is called on every frame while the FAB is moving.
-  /// تیک موتور فیزیک. این تابع در هر فریم تا زمانی که دکمه در حال حرکت است، فراخوانی می‌شود.
   void _tick(Duration elapsed) {
     if (!mounted) return;
     setState(() {
@@ -81,37 +77,27 @@ class _PhysicsalFabState extends State<PhysicsalFab>
       );
       _velocity *= (1.0 - widget.physicsConfig.friction);
 
-      // Wall collision logic based on PhysicsConfig
-      // منطق برخورد با دیواره‌ها بر اساس تنظیمات فیزیک
       bool hasCollided = false;
       if (_dragAlignment.x.abs() > 1.0) {
         if (widget.physicsConfig.invertDirectionOnCollision) {
-          _velocity = Offset(
-            -_velocity.dx * widget.physicsConfig.damping,
-            _velocity.dy * widget.physicsConfig.damping,
-          );
+          _velocity = Offset(-_velocity.dx * widget.physicsConfig.damping,
+              _velocity.dy * widget.physicsConfig.damping);
         } else {
           _velocity = Offset(0, _velocity.dy * widget.physicsConfig.damping);
         }
-        _dragAlignment = Alignment(
-          _dragAlignment.x.clamp(-1.0, 1.0),
-          _dragAlignment.y,
-        );
+        _dragAlignment =
+            Alignment(_dragAlignment.x.clamp(-1.0, 1.0), _dragAlignment.y);
         hasCollided = true;
       }
       if (_dragAlignment.y.abs() > 1.0) {
         if (widget.physicsConfig.invertDirectionOnCollision) {
-          _velocity = Offset(
-            _velocity.dx * widget.physicsConfig.damping,
-            -_velocity.dy * widget.physicsConfig.damping,
-          );
+          _velocity = Offset(_velocity.dx * widget.physicsConfig.damping,
+              -_velocity.dy * widget.physicsConfig.damping);
         } else {
           _velocity = Offset(_velocity.dx * widget.physicsConfig.damping, 0);
         }
-        _dragAlignment = Alignment(
-          _dragAlignment.x,
-          _dragAlignment.y.clamp(-1.0, 1.0),
-        );
+        _dragAlignment =
+            Alignment(_dragAlignment.x, _dragAlignment.y.clamp(-1.0, 1.0));
         hasCollided = true;
       }
 
@@ -119,8 +105,6 @@ class _PhysicsalFabState extends State<PhysicsalFab>
         _handleCollisionEffect();
       }
 
-      // Stop the ticker if velocity is negligible
-      // اگر سرعت ناچیز بود، تیکر را متوقف کن
       if (_velocity.distance < 0.1) {
         _ticker.stop();
         widget.onStop(_dragAlignment);
@@ -128,8 +112,6 @@ class _PhysicsalFabState extends State<PhysicsalFab>
     });
   }
 
-  /// Handles the visual and physical effect of a collision based on the config.
-  /// افکت بصری و فیزیکی برخورد را بر اساس تنظیمات مدیریت می‌کند.
   void _handleCollisionEffect() {
     switch (widget.physicsConfig.collisionEffect) {
       case FabCollisionEffect.bounceAndGlow:
@@ -146,8 +128,6 @@ class _PhysicsalFabState extends State<PhysicsalFab>
     }
   }
 
-  /// Starts the animation to return the FAB to its home position based on the config.
-  /// انیمیشن بازگشت دکمه به جایگاه اصلی را بر اساس تنظیمات شروع می‌کند.
   void _returnToHome() {
     widget.onReturnStart?.call();
     _ticker.stop();
@@ -204,14 +184,11 @@ class _PhysicsalFabState extends State<PhysicsalFab>
     if (!_isAiming) return;
 
     setState(() {
-      // Set velocity based on the chosen launch type
-      // تنظیم سرعت بر اساس نوع پرتاب انتخاب شده
       switch (widget.physicsConfig.launchType) {
         case FabLaunchType.directThrow:
           _velocity = _dragOffset * widget.physicsConfig.launchPowerMultiplier;
           break;
         case FabLaunchType.slingshot:
-          // Velocity is opposite to the drag direction
           _velocity = -_dragOffset * widget.physicsConfig.launchPowerMultiplier;
           break;
       }
@@ -256,7 +233,7 @@ class _PhysicsalFabState extends State<PhysicsalFab>
                 ),
               _AnimatedGlowingFab(
                 style: widget.style,
-                glowController: _impactGlowController,
+                impactGlowController: _impactGlowController,
                 isCharging: _isAiming,
               ),
             ],
@@ -267,18 +244,14 @@ class _PhysicsalFabState extends State<PhysicsalFab>
   }
 }
 
-// _AnimatedGlowingFab and _AimingLinePainter remain the same as they are purely visual
-// and controlled by the main state widget. No changes needed here.
-// ویجت‌های داخلی برای ظاهر و انیمیشن بدون تغییر باقی می‌مانند.
-
 class _AnimatedGlowingFab extends StatefulWidget {
   final FabStyle style;
-  final AnimationController glowController;
+  final AnimationController impactGlowController;
   final bool isCharging;
 
   const _AnimatedGlowingFab({
     required this.style,
-    required this.glowController,
+    required this.impactGlowController,
     required this.isCharging,
   });
 
@@ -288,36 +261,144 @@ class _AnimatedGlowingFab extends StatefulWidget {
 
 class __AnimatedGlowingFabState extends State<_AnimatedGlowingFab>
     with TickerProviderStateMixin {
-  late AnimationController _rotationController;
+  final Map<FabAnimationType, AnimationController> _animationControllers = {};
+  final Map<FabAnimationType, Animation<dynamic>> _animations = {};
 
   @override
   void initState() {
     super.initState();
-    _rotationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 5),
-    )..repeat();
+    _initializeAnimations();
+  }
+
+  void _initializeAnimations() {
+    final period = widget.style.animationPeriod;
+
+    for (var animType in widget.style.activeAnimations) {
+      switch (animType) {
+        case FabAnimationType.rotation:
+          final controller = AnimationController(vsync: this, duration: period)
+            ..repeat();
+          _animationControllers[animType] = controller;
+          _animations[animType] =
+              Tween<double>(begin: 0, end: 1).animate(controller);
+          break;
+        case FabAnimationType.pulse:
+          final controller = AnimationController(vsync: this, duration: period)
+            ..repeat(reverse: true);
+          _animationControllers[animType] = controller;
+          _animations[animType] = Tween<double>(begin: 0.9, end: 1.1).animate(
+            CurvedAnimation(parent: controller, curve: Curves.easeInOut),
+          );
+          break;
+        case FabAnimationType.blink:
+          final controller = AnimationController(vsync: this, duration: period)
+            ..repeat(reverse: true);
+          _animationControllers[animType] = controller;
+          _animations[animType] = Tween<double>(begin: 0.7, end: 1.0).animate(
+            CurvedAnimation(parent: controller, curve: Curves.easeInOut),
+          );
+          break;
+        case FabAnimationType.floatVertical:
+        case FabAnimationType.floatHorizontal:
+          final controller = AnimationController(vsync: this, duration: period)
+            ..repeat(reverse: true);
+          _animationControllers[animType] = controller;
+          _animations[animType] = Tween<double>(begin: -5.0, end: 5.0).animate(
+            CurvedAnimation(parent: controller, curve: Curves.easeInOut),
+          );
+          break;
+      }
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant _AnimatedGlowingFab oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.style.activeAnimations != oldWidget.style.activeAnimations) {
+      _disposeAnimations();
+      _initializeAnimations();
+    }
+  }
+
+  void _disposeAnimations() {
+    for (var controller in _animationControllers.values) {
+      controller.dispose();
+    }
+    _animationControllers.clear();
+    _animations.clear();
   }
 
   @override
   void dispose() {
-    _rotationController.dispose();
+    _disposeAnimations();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget fabCore = ClipRRect(
+      borderRadius: BorderRadius.circular(widget.style.size),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: widget.style.gradient,
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.white.withAlpha(50)),
+          ),
+          child: Icon(widget.style.icon,
+              size: widget.style.size * 0.5, color: widget.style.iconColor),
+        ),
+      ),
+    );
+
+    Widget animatedFab = fabCore;
+    for (var entry in _animations.entries) {
+      final animType = entry.key;
+      final animation = entry.value;
+
+      animatedFab = AnimatedBuilder(
+        animation: animation,
+        child: animatedFab,
+        builder: (context, child) {
+          switch (animType) {
+            case FabAnimationType.rotation:
+              return RotationTransition(
+                  turns: animation as Animation<double>, child: child);
+            case FabAnimationType.pulse:
+              return ScaleTransition(
+                  scale: animation as Animation<double>, child: child);
+            case FabAnimationType.blink:
+              return FadeTransition(
+                  opacity: animation as Animation<double>, child: child);
+            case FabAnimationType.floatVertical:
+              return Transform.translate(
+                  offset: Offset(0, animation.value), child: child);
+            case FabAnimationType.floatHorizontal:
+              return Transform.translate(
+                  offset: Offset(animation.value, 0), child: child);
+          }
+        },
+      );
+    }
+
     final double chargeScale = widget.isCharging ? 1.15 : 1.0;
     final double chargeGlow = widget.isCharging ? 15.0 : 0.0;
+
+    // FIX: The glow color is now derived from the first color of the gradient.
+    // اصلاح: رنگ درخشش اکنون از اولین رنگ گرادیانت گرفته می‌شود.
+    final glowColor = (widget.style.gradient is LinearGradient)
+        ? (widget.style.gradient as LinearGradient).colors.first
+        : Colors.cyan; // Fallback color
 
     return AnimatedScale(
       scale: chargeScale,
       duration: const Duration(milliseconds: 200),
       curve: Curves.easeInOut,
       child: AnimatedBuilder(
-        animation: widget.glowController,
+        animation: widget.impactGlowController,
         builder: (context, child) {
-          final glowValue = widget.glowController.value;
+          final glowValue = widget.impactGlowController.value;
           final curve = Curves.easeOut.transform(glowValue);
           return Container(
             width: widget.style.size,
@@ -326,9 +407,8 @@ class __AnimatedGlowingFabState extends State<_AnimatedGlowingFab>
               shape: BoxShape.circle,
               boxShadow: [
                 BoxShadow(
-                  color: widget.style.glowColor.withAlpha(
-                    (255 * (0.5 + (curve * 0.5))).round(),
-                  ),
+                  color: glowColor
+                      .withAlpha((255 * (0.5 + (curve * 0.5))).round()),
                   blurRadius: 15 + (curve * 25) + chargeGlow,
                   spreadRadius: 3 + (curve * 7) + (chargeGlow / 5),
                 ),
@@ -337,29 +417,7 @@ class __AnimatedGlowingFabState extends State<_AnimatedGlowingFab>
             child: child,
           );
         },
-        child: RotationTransition(
-          turns: _rotationController,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(widget.style.size),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  gradient: widget.style.gradient,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white.withAlpha((255 * 0.2).round()),
-                  ),
-                ),
-                child: Icon(
-                  widget.style.icon,
-                  size: widget.style.size * 0.5,
-                  color: widget.style.iconColor,
-                ),
-              ),
-            ),
-          ),
-        ),
+        child: animatedFab,
       ),
     );
   }
@@ -381,17 +439,14 @@ class _AimingLinePainter extends CustomPainter {
     final center = Offset(size.width / 2, size.height / 2);
     final endPoint = center + dragOffset;
     final distance = dragOffset.distance;
-
     final powerRatio = (distance / 150.0).clamp(0.0, 1.0);
-
     final linePaint = Paint()
       ..strokeWidth = 2.0 + (powerRatio * 3.0)
       ..strokeCap = StrokeCap.round;
 
     if (distance > 0) {
-      linePaint.shader = gradient.createShader(
-        Rect.fromPoints(center, endPoint),
-      );
+      linePaint.shader =
+          gradient.createShader(Rect.fromPoints(center, endPoint));
       canvas.drawLine(center, endPoint, linePaint);
     }
 
@@ -400,12 +455,11 @@ class _AimingLinePainter extends CustomPainter {
     final glowPaint = Paint()
       ..shader = RadialGradient(
         colors: [
-          (gradient as LinearGradient).colors.last.withOpacity(
-            0.6 * pulseValue,
-          ),
-          (gradient as LinearGradient).colors.first.withOpacity(
-            0.2 * pulseValue,
-          ),
+          (gradient as LinearGradient)
+              .colors
+              .last
+              .withOpacity(0.6 * pulseValue),
+          (gradient).colors.first.withOpacity(0.2 * pulseValue),
           Colors.transparent,
         ],
         stops: const [0.0, 0.7, 1.0],
@@ -413,17 +467,15 @@ class _AimingLinePainter extends CustomPainter {
     canvas.drawCircle(endPoint, glowRadius, glowPaint);
 
     final circlePaint = Paint()
-      ..shader =
-          RadialGradient(
-            colors: [
-              (gradient as LinearGradient).colors.last.withOpacity(0.9),
-              (gradient as LinearGradient).colors.first.withOpacity(0.4),
-              Colors.transparent,
-            ],
-            stops: const [0.0, 0.5, 1.0],
-          ).createShader(
-            Rect.fromCircle(center: endPoint, radius: 6.0 + (powerRatio * 6.0)),
-          );
+      ..shader = RadialGradient(
+        colors: [
+          (gradient).colors.last.withOpacity(0.9),
+          (gradient).colors.first.withOpacity(0.4),
+          Colors.transparent,
+        ],
+        stops: const [0.0, 0.5, 1.0],
+      ).createShader(
+          Rect.fromCircle(center: endPoint, radius: 6.0 + (powerRatio * 6.0)));
     canvas.drawCircle(endPoint, 6.0 + (powerRatio * 6.0), circlePaint);
   }
 

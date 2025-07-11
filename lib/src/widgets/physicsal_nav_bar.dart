@@ -50,10 +50,8 @@ class PhysicsalNavBar extends StatefulWidget {
     this.barStyle = const BarStyle(),
     this.fabStyle = const FabStyle(),
     this.physicsConfig = const PhysicsConfig(),
-  }) : assert(
-         items.length == 4,
-         "PhysicsalNavBar currently supports exactly 4 items.",
-       );
+  }) : assert(items.length == 4,
+            "PhysicsalNavBar currently supports exactly 4 items.");
 
   @override
   State<PhysicsalNavBar> createState() => _PhysicsalNavBarState();
@@ -79,20 +77,12 @@ class _PhysicsalNavBarState extends State<PhysicsalNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    // By placing the BottomBar first in the Stack, we ensure it's drawn behind the FAB.
+    // با قرار دادن BottomBar در ابتدای Stack، اطمینان حاصل می‌کنیم که پشت دکمه شناور کشیده می‌شود.
     return Stack(
       children: [
-        // The FAB is in the background to not block taps on the nav bar.
-        // دکمه شناور در پس‌زمینه قرار می‌گیرد تا مانع کلیک روی نوار ناوبری نشود.
-        PhysicsalFab(
-          style: widget.fabStyle,
-          physicsConfig: widget.physicsConfig,
-          onPressed: widget.onFabPressed,
-          onStop: widget.onFabStop,
-          onLaunch: () => setState(() => _showFabGap = false),
-          onReturnStart: () => setState(() => _showFabGap = true),
-        ),
-        // The bottom bar is aligned to the bottom.
-        // نوار پایین در انتهای صفحه قرار می‌گیرد.
+        // The bottom bar is aligned to the bottom. It will be the background layer.
+        // نوار پایین در انتهای صفحه قرار می‌گیرد و لایه پس‌زمینه خواهد بود.
         Align(
           alignment: Alignment.bottomCenter,
           child: BottomBar(
@@ -102,6 +92,16 @@ class _PhysicsalNavBarState extends State<PhysicsalNavBar> {
             onTabTapped: _handleTabTapped,
             showFabGap: _showFabGap,
           ),
+        ),
+        // The FAB is drawn on top of the bar, allowing it to move freely over it.
+        // دکمه شناور روی نوار کشیده می‌شود و به آن اجازه می‌دهد آزادانه روی آن حرکت کند.
+        PhysicsalFab(
+          style: widget.fabStyle,
+          physicsConfig: widget.physicsConfig,
+          onPressed: widget.onFabPressed,
+          onStop: widget.onFabStop,
+          onLaunch: () => setState(() => _showFabGap = false),
+          onReturnStart: () => setState(() => _showFabGap = true),
         ),
       ],
     );
