@@ -17,9 +17,9 @@
 
 | پرتاب قلاب‌سنگی (Slingshot) | پرتاب مستقیم (Direct Throw) |
 | :---: | :---: |
-| ![نمایش پرتاب قلاب‌سنگی](https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/1.gif) | ![نمایش پرتاب مستقیم](https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/2.gif) |
+| ![نمایش پرتاب قلاب‌سنگی](https://s6.uupload.ir/files/1_t99n.gif) | ![نمایش پرتاب مستقیم](https://s6.uupload.ir/files/2_eu17.gif) |
 | **افکت برخورد انفجاری** | **سفارشی‌سازی کامل استایل** |
-| ![نمایش افکت برخورد](https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/3.gif) | ![نمایش سفارشی‌سازی](https://raw.githubusercontent.com/ShoghShahadat/physicsal_navigation/main/gif/4.gif) |
+| ![نمایش افکت برخورد](https://s6.uupload.ir/files/3_qjmn.gif) | ![نمایش سفارشی‌سازی](https://s6.uupload.ir/files/4_hfk4.gif) |
 
 </div>
 
