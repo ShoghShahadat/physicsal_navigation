@@ -9,7 +9,7 @@ description: A beautiful, highly customizable, physics-based navigation bar for 
 
 # The version of the package. Follow semantic versioning (major.minor.patch).
 # نسخه پکیج. از نسخه‌بندی معنایی (major.minor.patch) پیروی کنید.
-version: 1.0.1+1
+version: 1.0.1
 
 # The homepage of the package, typically a link to the GitHub repository.
 # صفحه اصلی پکیج، معمولاً لینکی به مخزن گیت‌هاب است.
