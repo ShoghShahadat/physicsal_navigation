@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"name": "physicsal_navigation",
+			"path": "../.."
+		},
+		{
+			"name": "gif",
+			"path": "../../../../../gif"
+		}
+	],
+	"settings": {
+		"flutterTools.displayGetxContextMenu": false,
+		"flutterTools.displayMobxContextMenu": false,
+		"flutterTools.displayRiverpodContextMenu": false,
+		"flutterTools.displayModularContextMenu": false
+	}
+}
